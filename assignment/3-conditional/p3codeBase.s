@@ -12,6 +12,54 @@
 # d --> $s3
 main:    
     
+    li $s0,5
+    li $s1,6
+    li $s2,7
+    li $s3,-1
+    li $t3,10
+    
+    slt $t1,$0,$t3
+    beq $t1,0,else
+    addi $s0,$s0,1
+    j end
+    else:
+    addi $s0,$s0,-1
+    end:
+    
+    add $s3,$s0,$s2
+    add $s2,$s0,$s3
+    
+    slt $t1,$s1,$t3
+    beq $t1,0,else1
+    addi $s1,$s1,1
+    addi $s2,$s2,-1
+    j end1
+    
+    else1:
+    addi $s1,$s1,-1
+    addi $s2,$s2,1
+    end1:
+    
+    add $s0,$s2,$s1
+    add $s1,$s2,$s3
+    
+    slt $t1,$s1,$s2
+    slt $t2,$s0,$s1
+    
+    beq $t1,0,else2
+    beq $t1,0,else2
+    add $s3,$s0,$s1
+    j final
+    else2:
+    slt $t1,$s2,$s1
+    slt $t2,$s2,$s0
+    beq $t1,1,label1
+    beq $t2,1,label1
+    j final
+    
+    label1:
+    add $s3,$s1,$s2
+    final:
 
 exit:
     la   $a0, albl      # puts albl into arg0 (a0 register) for cout
